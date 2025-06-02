@@ -2,15 +2,25 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { UniqueConstraintError } from 'sequelize';
 
-export class userRepository {
+@Injectable()
+export class UserRepository {
   constructor(
     @InjectModel(User)
     private readonly userModel: typeof User,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.userModel.create({ ...createUserDto });
+  async create(createUserDto: CreateUserDto) {
+    try {
+      return await this.userModel.create({ ...createUserDto });
+    } catch (error) {
+      if (error instanceof UniqueConstraintError) {
+        throw new ConflictException('Email já cadasttado');
+      }
+      throw error;
+    }
   }
 
   findById(userId: number) {
