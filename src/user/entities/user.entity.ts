@@ -15,16 +15,16 @@ export class User extends Model {
   @Column({
     type: DataType.STRING,
   })
-  name: string;
+  declare name: string;
 
   @Column({
     type: DataType.STRING,
     unique: true,
   })
-  email: string;
+  declare email: string;
 
   @Column({
     type: DataType.STRING,
   })
-  password: string;
+  declare password: string;
 }

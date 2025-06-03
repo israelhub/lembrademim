@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
@@ -8,24 +8,32 @@ import { hash as bcryptHash } from 'bcrypt';
 export class UserService {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const hashedPassword = await bcryptHash(createUserDto.password, 10);
+  async registerUser(createUserDto: CreateUserDto) {
+    const existingUser = await this.userRepo.findByEmail(createUserDto.email);
+    if (existingUser) {
+      throw new ConflictException('Email já cadastrado');
+    }
 
+    const hashedPassword = await bcryptHash(createUserDto.password, 10);
     return await this.userRepo.create({
       ...createUserDto,
       password: hashedPassword,
     });
   }
 
-  findAll() {
+  listUsers() {
     return this.userRepo.findAll();
   }
 
-  findOne(id: number) {
+  getUser(id: number) {
     return this.userRepo.findById(id);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  getUserByEmail(email: string) {
+    return this.userRepo.findByEmail(email);
+  }
+
+  async updateUser(id: number, updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       const hashedPassword = await bcryptHash(updateUserDto.password, 10);
       updateUserDto = {
@@ -36,7 +44,7 @@ export class UserService {
     return this.userRepo.update(id, updateUserDto);
   }
 
-  remove(id: number) {
+  deleteUser(id: number) {
     return this.userRepo.destroy(id);
   }
 }

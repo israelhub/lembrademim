@@ -2,8 +2,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ConflictException, Injectable } from '@nestjs/common';
-import { UniqueConstraintError } from 'sequelize';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserRepository {
@@ -13,22 +12,15 @@ export class UserRepository {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    try {
-      return await this.userModel.create({ ...createUserDto });
-    } catch (error) {
-      if (error instanceof UniqueConstraintError) {
-        throw new ConflictException('Email já cadasttado');
-      }
-      throw error;
-    }
+    return await this.userModel.create({ ...createUserDto });
   }
 
   findById(userId: number) {
     return this.userModel.findByPk(userId);
   }
 
-  findByUsername(username: string) {
-    return this.userModel.findOne({ where: { username } });
+  findByEmail(email: string) {
+    return this.userModel.findOne({ where: { email } });
   }
 
   findAll() {
