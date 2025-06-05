@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { AuthService } from '../auth.service';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from '../auth.decorator';
+import { IS_PUBLIC_KEY } from '../decorators/auth.decorator';
 
 interface JwtPayload {
   sub: number;

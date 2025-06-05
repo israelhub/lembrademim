@@ -18,7 +18,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { Public } from 'src/auth/auth.decorator';
+import { Public } from 'src/auth/decorators/auth.decorator';
 
 @UseGuards(AuthGuard)
 @ApiTags('user')
