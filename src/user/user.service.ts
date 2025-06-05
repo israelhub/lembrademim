@@ -57,6 +57,6 @@ export class UserService {
   }
 
   deleteUser(id: number) {
-    return this.userRepo.destroy(id);
+    return this.userRepo.remove(id);
   }
 }

@@ -1,30 +1,35 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  AutoIncrement,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+} from 'sequelize-typescript';
+import { Biography } from 'src/biography/entities/biography.entity';
 
 @Table({
   tableName: 'user',
   timestamps: false,
 })
 export class User extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  })
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
   declare id: number;
 
-  @Column({
-    type: DataType.STRING,
-  })
+  @Column(DataType.STRING)
   declare name: string;
 
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-  })
+  @Unique
+  @Column(DataType.STRING)
   declare email: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
+  @Column(DataType.STRING)
   declare password: string;
+
+  @HasMany(() => Biography)
+  biographys: Biography[];
 }

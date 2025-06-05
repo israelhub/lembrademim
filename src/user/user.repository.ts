@@ -47,7 +47,7 @@ export class UserRepository {
     return [affectedCount, updatedUser];
   }
 
-  destroy(userId: number) {
+  remove(userId: number) {
     return this.userModel.destroy({ where: { id: userId } });
   }
 }
