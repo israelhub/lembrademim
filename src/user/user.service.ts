@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { hash as bcryptHash } from 'bcrypt';
+import { CreateGoogleUserDto } from './dto/create-googleuser.dto';
 
 @Injectable()
 export class UserService {
@@ -17,6 +18,17 @@ export class UserService {
     const hashedPassword = await bcryptHash(createUserDto.password, 10);
     return await this.userRepo.create({
       ...createUserDto,
+      password: hashedPassword,
+    });
+  }
+
+  async registerGoogleUser(createGoogleUserDto: CreateGoogleUserDto) {
+    // Para usuários do Google, podemos usar um password aleatório
+    const randomPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcryptHash(randomPassword, 10);
+
+    return await this.userRepo.create({
+      ...createGoogleUserDto,
       password: hashedPassword,
     });
   }
