@@ -16,6 +16,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
         database: configService.get('DATABASE_NAME'),
         autoLoadModels: true,
         synchronize: true,
+        define: {
+          underscored: true,
+        },
       }),
     }),
   ],
