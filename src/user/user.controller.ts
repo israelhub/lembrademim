@@ -17,10 +17,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Public } from 'src/auth/auth.decorator';
 
-@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @ApiTags('user')
 @Controller('user')
@@ -37,6 +36,7 @@ export class UserController {
     return this.userService.registerUser(createUserDto);
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Lista usuários' })
   @ApiResponse({ status: 200, description: 'Listado com sucesso' })
   @Get()
@@ -44,16 +44,19 @@ export class UserController {
     return this.userService.listUsers();
   }
 
+  @ApiBearerAuth()
   @Get(':id')
   getUser(@Param('id') id: string) {
     return this.userService.getUser(+id);
   }
 
+  @ApiBearerAuth()
   @Patch(':id')
   updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateUser(+id, updateUserDto);
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   deleteUser(@Param('id') id: string) {
     return this.userService.deleteUser(+id);
