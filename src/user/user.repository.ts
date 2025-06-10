@@ -27,24 +27,10 @@ export class UserRepository {
     return this.userModel.findAll();
   }
 
-  async update(
-    userId: number,
-    updateUserDto: UpdateUserDto,
-  ): Promise<[number, User]> {
-    // Atualiza o usuário e obtém o número de registros afetados
-    const [affectedCount, affectedRows] = (await this.userModel.update(
-      updateUserDto,
-      {
-        where: { id: userId },
-        returning: true,
-      },
-    )) as [number, User[]];
+  async update(folderId: number, updateFolderDto: UpdateUserDto) {
+    await this.userModel.update(updateFolderDto, { where: { folderId } });
 
-    // Obter o usuário atualizado
-    const updatedUser = affectedRows[0] || (await this.findById(userId));
-
-    // Retorna uma tupla com o número de registros afetados e o usuário atualizado
-    return [affectedCount, updatedUser];
+    return this.userModel.findByPk(folderId);
   }
 
   remove(userId: number) {
