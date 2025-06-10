@@ -15,11 +15,11 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('folder')
 export class FolderController {
   constructor(private readonly folderService: FolderService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createFolderDto: CreateFolderDto, @CurrentUser() user: User) {
     return this.folderService.createFolder(createFolderDto, user.id);
