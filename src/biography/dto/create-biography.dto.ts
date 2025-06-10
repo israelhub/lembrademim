@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateBiographyDto {
   @ApiProperty({ example: 'Ana Costa' })
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty({ example: '(21) 999123-5627 ' })
