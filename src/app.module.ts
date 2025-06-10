@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { BiographyModule } from './biography/biography.module';
+import { FolderModule } from './folder/folder.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { BiographyModule } from './biography/biography.module';
     DatabaseModule,
     AuthModule,
     BiographyModule,
+    FolderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,6 +9,7 @@ import {
   Unique,
 } from 'sequelize-typescript';
 import { Biography } from 'src/biography/entities/biography.entity';
+import { Folder } from 'src/folder/entities/folder.entity';
 
 @Table({
   tableName: 'user',
@@ -32,4 +33,7 @@ export class User extends Model {
 
   @HasMany(() => Biography)
   biographys: Biography[];
+
+  @HasMany(() => Folder)
+  folders: Folder[];
 }
