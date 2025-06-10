@@ -6,17 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { FolderService } from './folder.service';
 import { CreateFolderDto } from './dto/create-folder.dto';
 import { UpdateFolderDto } from './dto/update-folder.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/user/entities/user.entity';
+import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('folder')
 export class FolderController {
   constructor(private readonly folderService: FolderService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createFolderDto: CreateFolderDto, @CurrentUser() user: User) {
     return this.folderService.createFolder(createFolderDto, user.id);
