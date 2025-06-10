@@ -7,10 +7,12 @@ import {
   Model,
   NotNull,
   PrimaryKey,
+  Table,
   Unique,
 } from 'sequelize-typescript';
 import { User } from 'src/user/entities/user.entity';
 
+@Table({ timestamps: false, tableName: 'biography' })
 export class Biography extends Model {
   @PrimaryKey
   @Unique
@@ -20,7 +22,7 @@ export class Biography extends Model {
 
   @NotNull
   @Column(DataType.STRING)
-  declare name;
+  declare name: string;
 
   @Column(DataType.STRING)
   declare cellphoneNumber: string;

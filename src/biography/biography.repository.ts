@@ -25,14 +25,7 @@ export class BiographyRepository {
   }
 
   async update(id: number, updateBiographyDto: UpdateBiographyDto) {
-    const [affectedCount] = await this.biographyModel.update(
-      updateBiographyDto,
-      { where: { id } },
-    );
-
-    if (affectedCount === 0) {
-      return null;
-    }
+    await this.biographyModel.update(updateBiographyDto, { where: { id } });
 
     return this.biographyModel.findByPk(id);
   }
