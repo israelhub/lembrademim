@@ -27,9 +27,14 @@ export class User extends Model {
   @Unique
   @Column(DataType.STRING)
   declare email: string;
-
   @Column(DataType.STRING)
   declare password: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare resetCode: string;
+
+  @Column({ type: DataType.DATE, allowNull: true })
+  declare resetCodeExpiresAt: Date;
 
   @HasMany(() => Biography)
   biographys: Biography[];

@@ -3,6 +3,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Injectable } from '@nestjs/common';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class UserRepository {
@@ -26,14 +27,38 @@ export class UserRepository {
   findAll() {
     return this.userModel.findAll();
   }
+  async update(userId: number, updateUserDto: UpdateUserDto) {
+    await this.userModel.update(updateUserDto, { where: { id: userId } });
 
-  async update(folderId: number, updateFolderDto: UpdateUserDto) {
-    await this.userModel.update(updateFolderDto, { where: { folderId } });
-
-    return this.userModel.findByPk(folderId);
+    return this.userModel.findByPk(userId);
   }
-
   remove(userId: number) {
     return this.userModel.destroy({ where: { id: userId } });
+  }
+
+  async setResetCode(userId: number, code: string, expiresAt: Date) {
+    return await this.userModel.update(
+      { resetCode: code, resetCodeExpiresAt: expiresAt },
+      { where: { id: userId } }
+    );
+  }
+
+  async findByResetCode(email: string, code: string) {
+    return this.userModel.findOne({
+      where: {
+        email,
+        resetCode: code,
+        resetCodeExpiresAt: {
+          [Op.gt]: new Date(),
+        },
+      },
+    });
+  }
+
+  async clearResetCode(userId: number) {
+    return await this.userModel.update(
+      { resetCode: null, resetCodeExpiresAt: null },
+      { where: { id: userId } }
+    );
   }
 }

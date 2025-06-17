@@ -55,8 +55,19 @@ export class UserService {
     }
     return this.userRepo.update(id, updateUserDto);
   }
-
   deleteUser(id: number) {
     return this.userRepo.remove(id);
+  }
+
+  async setResetCode(userId: number, code: string, expiresAt: Date) {
+    return await this.userRepo.setResetCode(userId, code, expiresAt);
+  }
+
+  async findByResetCode(email: string, code: string) {
+    return this.userRepo.findByResetCode(email, code);
+  }
+
+  async clearResetCode(userId: number) {
+    return await this.userRepo.clearResetCode(userId);
   }
 }
