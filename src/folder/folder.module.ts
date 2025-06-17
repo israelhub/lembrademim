@@ -8,5 +8,6 @@ import { Folder } from './entities/folder.entity';
   imports: [SequelizeModule.forFeature([Folder])],
   controllers: [FolderController],
   providers: [FolderService],
+  exports: [FolderService],
 })
 export class FolderModule {}

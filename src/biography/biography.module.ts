@@ -8,5 +8,6 @@ import { Biography } from './entities/biography.entity';
   imports: [SequelizeModule.forFeature([Biography])],
   controllers: [BiographyController],
   providers: [BiographyService],
+  exports: [BiographyService],
 })
 export class BiographyModule {}
