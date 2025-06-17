@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { BiographyModule } from './biography/biography.module';
 import { FolderModule } from './folder/folder.module';
+import { BiographyfolderModule } from './biographyfolder/biographyfolder.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FolderModule } from './folder/folder.module';
     AuthModule,
     BiographyModule,
     FolderModule,
+    BiographyfolderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
