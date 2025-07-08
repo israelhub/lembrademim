@@ -39,7 +39,7 @@ export class UserRepository {
   async setResetCode(userId: number, code: string, expiresAt: Date) {
     return await this.userModel.update(
       { resetCode: code, resetCodeExpiresAt: expiresAt },
-      { where: { id: userId } }
+      { where: { id: userId } },
     );
   }
 
@@ -58,7 +58,7 @@ export class UserRepository {
   async clearResetCode(userId: number) {
     return await this.userModel.update(
       { resetCode: null, resetCodeExpiresAt: null },
-      { where: { id: userId } }
+      { where: { id: userId } },
     );
   }
 }
