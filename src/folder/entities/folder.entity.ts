@@ -5,7 +5,6 @@ import {
   DataType,
   ForeignKey,
   Model,
-  NotNull,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
@@ -18,8 +17,7 @@ export class Folder extends Model {
   @Column(DataType.INTEGER)
   declare id: number;
 
-  @Column(DataType.STRING)
-  @NotNull
+  @Column({ type: DataType.STRING, allowNull: false })
   declare name: string;
 
   @ForeignKey(() => User)

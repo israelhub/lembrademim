@@ -5,7 +5,6 @@ import {
   DataType,
   ForeignKey,
   Model,
-  NotNull,
   PrimaryKey,
   Table,
   Unique,
@@ -20,8 +19,7 @@ export class Biography extends Model {
   @Column(DataType.BIGINT)
   declare id: number;
 
-  @NotNull
-  @Column(DataType.STRING)
+  @Column({ type: DataType.STRING, allowNull: false })
   declare name: string;
 
   @Column(DataType.STRING)
