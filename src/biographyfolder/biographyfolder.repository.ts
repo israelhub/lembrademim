@@ -15,20 +15,72 @@ export class BiographyfolderRepository {
    * Busca todas as relações por folderId
    */
   async findAllByFolder(folderId: number): Promise<Biographyfolder[]> {
-    return await this.biographyfolderModel.findAll({
+    console.log(`Repository: buscando biografias da pasta ${folderId}`);
+
+    // Buscar biografias diretamente
+    const relations = await this.biographyfolderModel.findAll({
       where: { folderId },
-      include: [Biography],
+      include: [
+        {
+          model: Biography,
+          as: 'biography',
+        },
+      ],
+      raw: false,
+      nest: true,
     });
+
+    console.log(
+      `Repository: encontradas ${relations.length} relações para a pasta ${folderId}`,
+    );
+
+    // Adicionar debug para ver o que está em cada relação
+    relations.forEach((relation, index) => {
+      console.log(`Relação ${index + 1}:`, {
+        id: relation.biographyId,
+        biography: relation.biography ? 'presente' : 'ausente',
+        biographyDataValues: relation.dataValues?.biography
+          ? 'presente'
+          : 'ausente',
+      });
+    });
+
+    return relations;
   }
 
   /**
    * Busca todas as relações por biographyId
    */
   async findAllByBiography(biographyId: number): Promise<Biographyfolder[]> {
-    return await this.biographyfolderModel.findAll({
+    console.log(`Repository: buscando pastas da biografia ${biographyId}`);
+
+    // Buscar pastas diretamente
+    const relations = await this.biographyfolderModel.findAll({
       where: { biographyId },
-      include: [Folder],
+      include: [
+        {
+          model: Folder,
+          as: 'folder',
+        },
+      ],
+      raw: false,
+      nest: true,
     });
+
+    console.log(
+      `Repository: encontradas ${relations.length} relações para a biografia ${biographyId}`,
+    );
+
+    // Adicionar debug para ver o que está em cada relação
+    relations.forEach((relation, index) => {
+      console.log(`Relação ${index + 1}:`, {
+        id: relation.folderId,
+        folder: relation.folder ? 'presente' : 'ausente',
+        folderDataValues: relation.dataValues?.folder ? 'presente' : 'ausente',
+      });
+    });
+
+    return relations;
   }
 
   /**

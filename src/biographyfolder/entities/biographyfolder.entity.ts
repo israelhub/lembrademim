@@ -27,4 +27,18 @@ export class Biographyfolder extends Model {
 
   @BelongsTo(() => Folder)
   folder: Folder;
+
+  // Método auxiliar para garantir acesso à biografia
+  getBiography(): Biography | null {
+    // @ts-ignore
+    return (
+      this.biography || (this.dataValues && this.dataValues.biography) || null
+    );
+  }
+
+  // Método auxiliar para garantir acesso à pasta
+  getFolder(): Folder | null {
+    // @ts-ignore
+    return this.folder || (this.dataValues && this.dataValues.folder) || null;
+  }
 }
