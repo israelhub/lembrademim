@@ -21,4 +21,7 @@ export class CreateBiographyDto {
 
   @ApiProperty({ example: 'Gosta muito de jogos' })
   notes: string;
+
+  @ApiProperty({ example: 'https://example.com/profile.jpg' })
+  profileImage: string;
 }
