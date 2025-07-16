@@ -31,10 +31,10 @@ export class User extends Model {
   declare password: string;
 
   @Column({ type: DataType.STRING, allowNull: true })
-  declare resetCode: string;
+  declare resetCode?: string;
 
   @Column({ type: DataType.DATE, allowNull: true })
-  declare resetCodeExpiresAt: Date;
+  declare resetCodeExpiresAt?: Date;
 
   @HasMany(() => Biography)
   biographys: Biography[];
