@@ -4,9 +4,10 @@ import { FolderController } from './folder.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Folder } from './entities/folder.entity';
 import { FolderRepository } from './folder.repository';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Folder])],
+  imports: [SequelizeModule.forFeature([Folder]), AuthModule],
   controllers: [FolderController],
   providers: [FolderService, FolderRepository],
   exports: [FolderService],

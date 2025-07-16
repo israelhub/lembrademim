@@ -8,12 +8,14 @@ import { Biography } from 'src/biography/entities/biography.entity';
 import { Folder } from 'src/folder/entities/folder.entity';
 import { BiographyModule } from 'src/biography/biography.module';
 import { FolderModule } from 'src/folder/folder.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([Biographyfolder, Biography, Folder]),
     BiographyModule,
     FolderModule,
+    AuthModule,
   ],
   controllers: [BiographyfolderController],
   providers: [BiographyfolderService, BiographyfolderRepository],
