@@ -23,12 +23,12 @@ export class FolderRepository {
   }
 
   async update(folderId: number, updateFolderDto: UpdateFolderDto) {
-    await this.folderModel.update(updateFolderDto, { where: { folderId } });
+    await this.folderModel.update(updateFolderDto, { where: { id: folderId } });
 
     return this.folderModel.findByPk(folderId);
   }
 
   remove(folderId: number) {
-    return this.folderModel.destroy({ where: { folderId } });
+    return this.folderModel.destroy({ where: { id: folderId } });
   }
 }
