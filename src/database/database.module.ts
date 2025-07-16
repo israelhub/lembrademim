@@ -9,11 +9,17 @@ import { SequelizeModule } from '@nestjs/sequelize';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         dialect: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USER'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'),
+        host: configService.get('PGHOST'),
+        port: 5432, // Porta padrão do PostgreSQL
+        username: configService.get('PGUSER'),
+        password: configService.get('PGPASSWORD'),
+        database: configService.get('PGDATABASE'),
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        },
         autoLoadModels: true,
         synchronize: true,
         alter: true, // Permite alterações na estrutura existente
