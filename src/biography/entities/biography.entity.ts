@@ -34,6 +34,9 @@ export class Biography extends Model {
   @Column(DataType.TEXT)
   declare notes: string;
 
+  @Column(DataType.TEXT)
+  declare profileImage: string;
+
   @ForeignKey(() => User)
   @Column(DataType.BIGINT)
   declare userId: number;
