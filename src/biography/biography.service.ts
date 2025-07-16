@@ -14,8 +14,11 @@ export class BiographyService {
     return this.biographyRepo.findAllByUser(userId);
   }
 
-  getBiography(id: number) {
-    return this.biographyRepo.findOne(id);
+  async getBiography(id: number) {
+    console.log(`BiographyService.getBiography chamado com id: ${id}`);
+    const biography = await this.biographyRepo.findOne(id);
+    console.log(`BiographyService.getBiography resultado:`, biography);
+    return biography;
   }
 
   updateBiography(id: number, updateBiographyDto: UpdateBiographyDto) {
