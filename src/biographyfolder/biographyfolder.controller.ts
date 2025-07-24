@@ -27,11 +27,11 @@ export class BiographyfolderController {
   @ApiOperation({ summary: 'Busca todas as biografias de uma pasta' })
   @Get('folder/:folderId')
   getAllBiographysByFolder(
-    @Param('folderId') folderId: string,
+    @Param('folderId') folderId: number,
     @CurrentUser() user: User,
   ) {
     return this.biographyfolderService.getAllBiographysByFolder(
-      +folderId,
+      folderId,
       user.id,
     );
   }
@@ -39,11 +39,11 @@ export class BiographyfolderController {
   @ApiOperation({ summary: 'Busca todas as pastas de uma biografia' })
   @Get('biography/:biographyId')
   getAllFoldersByBiography(
-    @Param('biographyId') biographyId: string,
+    @Param('biographyId') biographyId: number,
     @CurrentUser() user: User,
   ) {
     return this.biographyfolderService.getAllFoldersByBiography(
-      +biographyId,
+      biographyId,
       user.id,
     );
   }

@@ -111,8 +111,8 @@ export class FolderController {
     },
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.folderService.getFolder(+id);
+  findOne(@Param('id') id: number) {
+    return this.folderService.getFolder(id);
   }
 
   @ApiOperation({
@@ -144,8 +144,8 @@ export class FolderController {
     },
   })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFolderDto: UpdateFolderDto) {
-    return this.folderService.updateFolder(+id, updateFolderDto);
+  update(@Param('id') id: number, @Body() updateFolderDto: UpdateFolderDto) {
+    return this.folderService.updateFolder(id, updateFolderDto);
   }
 
   @ApiOperation({
@@ -176,7 +176,7 @@ export class FolderController {
     },
   })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.folderService.deleteFolder(+id);
+  remove(@Param('id') id: number) {
+    return this.folderService.deleteFolder(id);
   }
 }

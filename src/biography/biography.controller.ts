@@ -51,22 +51,22 @@ export class BiographyController {
 
   @ApiOperation({ summary: 'Busca uma biografia por ID' })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.biographyService.getBiography(+id);
+  findOne(@Param('id') id: number) {
+    return this.biographyService.getBiography(id);
   }
 
   @ApiOperation({ summary: 'Atualiza uma biografia' })
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateBiographyDto: UpdateBiographyDto,
   ) {
-    return this.biographyService.updateBiography(+id, updateBiographyDto);
+    return this.biographyService.updateBiography(id, updateBiographyDto);
   }
 
   @ApiOperation({ summary: 'Remove uma biografia' })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.biographyService.deleteBiography(+id);
+  remove(@Param('id') id: number) {
+    return this.biographyService.deleteBiography(id);
   }
 }
